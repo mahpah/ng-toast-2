@@ -1,0 +1,4 @@
+.toast(*ngFor="let item of toasts", [ngClass]="item.type")
+	.btn-close((click)="close(item)")
+	.title {{ item.title }}
+	.body {{ item.body }}

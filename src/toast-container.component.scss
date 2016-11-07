@@ -1,0 +1,73 @@
+:host {
+	display: block;
+	position: fixed;
+	top: 1em;
+	right: 1em;
+	z-index: 1000;
+}
+
+.toast {
+	width: 20em;
+	padding: 1em 2em;
+	border-radius: 5px;
+	margin-bottom: 1em;
+	position: relative;
+
+	.title {
+		font-size: .85em;
+		text-transform: uppercase;
+		font-weight: bold;
+		letter-spacing: 2px;
+		margin-bottom: .5em;
+		white-space: nowrap;
+	}
+
+	&:hover {
+		opacity: .8;
+		transition: opacity 250ms;
+	}
+
+	&.default {
+		background: hsla(0, 0%, 5%, 0.8);
+		color: #eee;
+		box-shadow: 0 1px 5px hsla(0, 0%, 0%, .5);
+	}
+
+	&.error {
+		background: hsla(0, 60%, 50%, .9);
+		color: #eee;
+		box-shadow: 0 1px 5px hsla(0%, 50%, 50%, .5);
+	}
+
+	&.success {
+		background: transparentize(#00c292, .1);
+		color: #eee;
+		box-shadow: 0 1px 5px hsla(0%, 50%, 50%, .5);
+	}
+
+	.btn-close {
+		width: 20px;ransition: opacity 250ms;
+		height: 20px;
+		border-radius: 50%;
+		border: 1px solid white;
+		position: absolute;
+		right: .5em;
+		top: .5em;
+		cursor: pointer;
+		opacity: .4;
+		transition: opacity 250ms;
+
+		&:hover {
+			opacity: 1;
+			transition: opacity 250ms;
+		}
+
+		&::after {
+			content: '\2715';
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+		}
+	}
+}
