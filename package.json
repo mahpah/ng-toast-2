@@ -1,6 +1,6 @@
 {
   "name": "ng-toast-2",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "",
   "main": "dist/index.js",
   "module": "dist/index.js",
@@ -16,7 +16,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "WTFPL",
   "devDependencies": {
     "@angular/compiler": "^2.1.2",
     "@angular/platform-browser": "^2.1.2",
@@ -44,6 +44,10 @@
     "webpack-dev-server": "beta",
     "zone.js": "^0.6.26"
   },
+	"repository": {
+		"url": "https://github.com/mahpah/ng-toast-2",
+		"type": "git"
+	},
   "dependencies": {
     "@angular/common": "^2.1.2",
     "@angular/core": "^2.1.2",
