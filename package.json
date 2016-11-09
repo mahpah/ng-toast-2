@@ -42,7 +42,8 @@
     "typescript": "^2.0.7",
     "webpack": "beta",
     "webpack-dev-server": "beta",
-    "zone.js": "^0.6.26"
+    "zone.js": "^0.6.26",
+    "webpack-merge": "^0.15.0"
   },
 	"repository": {
 		"url": "https://github.com/mahpah/ng-toast-2",
@@ -50,7 +51,6 @@
 	},
   "dependencies": {
     "@angular/common": "^2.1.2",
-    "@angular/core": "^2.1.2",
-    "webpack-merge": "^0.15.0"
+    "@angular/core": "^2.1.2"
   }
 }
