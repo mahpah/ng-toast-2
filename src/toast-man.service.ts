@@ -11,12 +11,12 @@ export interface Toast {
 export class ToastMan {
 	toasts = [] as Array<Toast>
 
-	success(title, body) {
-		return this.show(title, body, 5000, 'success')
+	success(title, body, time = 5000) {
+		return this.show(title, body, time, 'success')
 	}
 
-	error(title, body) {
-		return this.show(title, body, 5000, 'error')
+	error(title, body, time = 5000) {
+		return this.show(title, body, time, 'error')
 	}
 
 	close(item: Toast) {

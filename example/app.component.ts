@@ -13,6 +13,6 @@ export class AppComponent {
 	) {}
 
 	show() {
-		this.toastMan.success('afas', 'asdfsadf')
+		this.toastMan.success('afas', 'asdfsadf', 1000000)
 	}
 }

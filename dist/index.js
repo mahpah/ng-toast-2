@@ -85,11 +85,13 @@ var ToastMan = (function () {
     function ToastMan() {
         this.toasts = [];
     }
-    ToastMan.prototype.success = function (title, body) {
-        return this.show(title, body, 5000, 'success');
+    ToastMan.prototype.success = function (title, body, time) {
+        if (time === void 0) { time = 5000; }
+        return this.show(title, body, time, 'success');
     };
-    ToastMan.prototype.error = function (title, body) {
-        return this.show(title, body, 5000, 'error');
+    ToastMan.prototype.error = function (title, body, time) {
+        if (time === void 0) { time = 5000; }
+        return this.show(title, body, time, 'error');
     };
     ToastMan.prototype.close = function (item) {
         clearTimeout(item.timeout);
@@ -171,7 +173,7 @@ exports = module.exports = __webpack_require__(4)();
 
 
 // module
-exports.push([module.i, ":host {\n  display: block;\n  position: fixed;\n  top: 1em;\n  right: 1em;\n  z-index: 1000;\n}\n\n.toast {\n  width: 20em;\n  padding: 1em 2em;\n  border-radius: 5px;\n  margin-bottom: 1em;\n  position: relative;\n}\n\n.toast .title {\n  font-size: .85em;\n  text-transform: uppercase;\n  font-weight: bold;\n  letter-spacing: 2px;\n  margin-bottom: .5em;\n  white-space: nowrap;\n}\n\n.toast:hover {\n  opacity: .8;\n  transition: opacity 250ms;\n}\n\n.toast.default {\n  background: rgba(13, 13, 13, 0.8);\n  color: #eee;\n  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);\n}\n\n.toast.error {\n  background: rgba(204, 51, 51, 0.9);\n  color: #eee;\n  box-shadow: 0 1px 5px rgba(191, 64, 64, 0.5);\n}\n\n.toast.success {\n  background: rgba(0, 194, 146, 0.9);\n  color: #eee;\n  box-shadow: 0 1px 5px rgba(191, 64, 64, 0.5);\n}\n\n.toast .btn-close {\n  width: 20px;\n  ransition: opacity 250ms;\n  height: 20px;\n  border-radius: 50%;\n  border: 1px solid white;\n  position: absolute;\n  right: .5em;\n  top: .5em;\n  cursor: pointer;\n  opacity: .4;\n  transition: opacity 250ms;\n}\n\n.toast .btn-close:hover {\n  opacity: 1;\n  transition: opacity 250ms;\n}\n\n.toast .btn-close::after {\n  content: '\\2715';\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}", ""]);
+exports.push([module.i, ".toast-container {\n  display: block;\n  position: fixed;\n  top: 1em;\n  right: 1em;\n  z-index: 1000;\n}\n\n.toast {\n  width: 20em;\n  padding: 1em 2em;\n  border-radius: 5px;\n  margin-bottom: 1em;\n  position: relative;\n}\n\n.toast .title {\n  font-size: .85em;\n  text-transform: uppercase;\n  font-weight: bold;\n  letter-spacing: 2px;\n  margin-bottom: .5em;\n  white-space: nowrap;\n}\n\n.toast:hover {\n  opacity: .8;\n  transition: opacity 250ms;\n}\n\n.toast.default {\n  background: rgba(13, 13, 13, 0.8);\n  color: #eee;\n  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);\n}\n\n.toast.error {\n  background: rgba(204, 51, 51, 0.9);\n  color: #eee;\n  box-shadow: 0 1px 5px rgba(191, 64, 64, 0.5);\n}\n\n.toast.success {\n  background: rgba(0, 194, 146, 0.9);\n  color: #eee;\n  box-shadow: 0 1px 5px rgba(191, 64, 64, 0.5);\n}\n\n.toast .btn-close {\n  width: 20px;\n  ransition: opacity 250ms;\n  height: 20px;\n  border-radius: 50%;\n  border: 1px solid white;\n  position: absolute;\n  right: .5em;\n  top: .5em;\n  cursor: pointer;\n  opacity: .4;\n  transition: opacity 250ms;\n}\n\n.toast .btn-close:hover {\n  opacity: 1;\n  transition: opacity 250ms;\n}\n\n.toast .btn-close::after {\n  content: '\\2715';\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}", ""]);
 
 // exports
 
@@ -253,7 +255,7 @@ if (typeof styles === 'string') {
 /* 6 */
 /***/ function(module, exports) {
 
-module.exports = "<div class=\"toast\" *ngFor=\"let item of toasts\" [ngClass]=\"item.type\"><div class=\"btn-close\" (click)=\"close(item)\"></div><div class=\"title\">{{ item.title }}</div><div class=\"body\">{{ item.body }}</div></div>";
+module.exports = "<div class=\"toast-container\"><div class=\"toast\" *ngFor=\"let item of toasts\" [ngClass]=\"item.type\"><div class=\"btn-close\" (click)=\"close(item)\"></div><div class=\"title\">{{ item.title }}</div><div class=\"body\">{{ item.body }}</div></div></div>";
 
 /***/ },
 /* 7 */
@@ -282,6 +284,7 @@ var ToastContainer = (function () {
             selector: 'toast-container',
             template: __webpack_require__(6),
             styles: [__webpack_require__(5)],
+            encapsulation: core_1.ViewEncapsulation.None,
         }), 
         __metadata('design:paramtypes', [toast_man_service_1.ToastMan])
     ], ToastContainer);

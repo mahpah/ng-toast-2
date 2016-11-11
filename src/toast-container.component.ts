@@ -1,10 +1,11 @@
-import { Component } from '@angular/core'
+import { Component, ViewEncapsulation } from '@angular/core'
 import { ToastMan, Toast } from './toast-man.service'
 
 @Component({
 	selector: 'toast-container',
 	templateUrl: './toast-container.component.jade',
 	styleUrls: ['./toast-container.component.scss'],
+	encapsulation: ViewEncapsulation.None,
 })
 export class ToastContainer {
 	constructor(
