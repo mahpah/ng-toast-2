@@ -1,13 +1,13 @@
 (function webpackUniversalModuleDefinition(root, factory) {
 	if(typeof exports === 'object' && typeof module === 'object')
-		module.exports = factory(require("@angular/common"), require("@angular/core"));
+		module.exports = factory(require("@angular/core"), require("@angular/common"));
 	else if(typeof define === 'function' && define.amd)
-		define(["@angular/common", "@angular/core"], factory);
+		define(["@angular/core", "@angular/common"], factory);
 	else if(typeof exports === 'object')
-		exports["ng-toast-2"] = factory(require("@angular/common"), require("@angular/core"));
+		exports["ng-toast-2"] = factory(require("@angular/core"), require("@angular/common"));
 	else
-		root["ng-toast-2"] = factory(root["@angular/common"], root["@angular/core"]);
-})(this, function(__WEBPACK_EXTERNAL_MODULE_8__, __WEBPACK_EXTERNAL_MODULE_1__) {
+		root["ng-toast-2"] = factory(root["@angular/core"], root["@angular/common"]);
+})(this, function(__WEBPACK_EXTERNAL_MODULE_1__, __WEBPACK_EXTERNAL_MODULE_9__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -43,16 +43,18 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 
-/******/ 	// identity function for calling harmory imports with the correct context
+/******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
 
-/******/ 	// define getter function for harmory exports
+/******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
-/******/ 		Object.defineProperty(exports, name, {
-/******/ 			configurable: false,
-/******/ 			enumerable: true,
-/******/ 			get: getter
-/******/ 		});
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, {
+/******/ 				configurable: false,
+/******/ 				enumerable: true,
+/******/ 				get: getter
+/******/ 			});
+/******/ 		}
 /******/ 	};
 
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
@@ -71,7 +73,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 10);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -79,18 +81,23 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
+
 var core_1 = __webpack_require__(1);
+var toast_config_class_1 = __webpack_require__(2);
 var ToastMan = (function () {
-    function ToastMan() {
+    function ToastMan(config) {
         this.toasts = [];
+        this.config = Object.assign({
+            timeAlive: 5000,
+            maxNumberOfToasts: 3,
+        }, config);
     }
     ToastMan.prototype.success = function (title, body, time) {
-        if (time === void 0) { time = 5000; }
+        time = time || this.config.timeAlive;
         return this.show(title, body, time, 'success');
     };
     ToastMan.prototype.error = function (title, body, time) {
-        if (time === void 0) { time = 5000; }
+        time = time || this.config.timeAlive;
         return this.show(title, body, time, 'error');
     };
     ToastMan.prototype.close = function (item) {
@@ -106,14 +113,14 @@ var ToastMan = (function () {
             body: body,
             timeout: setTimeout(function () { return _this.toasts = _this.toasts.filter(function (t) { return t !== toast; }); }, timealive),
         };
-        this.toasts = this.toasts.concat([toast]);
+        this.toasts = this.toasts.concat([toast]).slice(-this.config.maxNumberOfToasts);
     };
-    ToastMan = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [])
-    ], ToastMan);
     return ToastMan;
 }());
+ToastMan = __decorate([
+    core_1.Injectable(),
+    __metadata("design:paramtypes", [toast_config_class_1.ToastConfig])
+], ToastMan);
 exports.ToastMan = ToastMan;
 
 
@@ -128,58 +135,78 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
-var core_1 = __webpack_require__(1);
-var common_1 = __webpack_require__(8);
-var toast_man_service_1 = __webpack_require__(0);
-var toast_container_component_1 = __webpack_require__(7);
-var ToastrModule = (function () {
-    function ToastrModule() {
+
+/**
+ * Global toast config
+ */
+var ToastConfig = (function () {
+    function ToastConfig() {
     }
-    ToastrModule.forRoot = function () {
-        return {
-            ngModule: ToastrModule,
-            providers: [
-                toast_man_service_1.ToastMan,
-            ],
-        };
-    };
-    ToastrModule = __decorate([
-        core_1.NgModule({
-            imports: [
-                common_1.CommonModule,
-            ],
-            providers: [],
-            declarations: [
-                toast_container_component_1.ToastContainer,
-            ],
-            exports: [
-                toast_container_component_1.ToastContainer,
-            ],
-        }), 
-        __metadata('design:paramtypes', [])
-    ], ToastrModule);
-    return ToastrModule;
+    return ToastConfig;
 }());
-exports.ToastrModule = ToastrModule;
+exports.ToastConfig = ToastConfig;
 
 
 /***/ },
 /* 3 */
 /***/ function(module, exports, __webpack_require__) {
 
-exports = module.exports = __webpack_require__(4)();
+"use strict";
+
+var core_1 = __webpack_require__(1);
+var common_1 = __webpack_require__(9);
+var toast_man_service_1 = __webpack_require__(0);
+var toast_container_component_1 = __webpack_require__(8);
+var toast_config_class_1 = __webpack_require__(2);
+var ToastrModule = ToastrModule_1 = (function () {
+    function ToastrModule() {
+    }
+    ToastrModule.forRoot = function (config) {
+        return {
+            ngModule: ToastrModule_1,
+            providers: [
+                toast_man_service_1.ToastMan,
+                { provide: toast_config_class_1.ToastConfig, useValue: config }
+            ],
+        };
+    };
+    return ToastrModule;
+}());
+ToastrModule = ToastrModule_1 = __decorate([
+    core_1.NgModule({
+        imports: [
+            common_1.CommonModule,
+        ],
+        providers: [],
+        declarations: [
+            toast_container_component_1.ToastContainer,
+        ],
+        exports: [
+            toast_container_component_1.ToastContainer,
+        ],
+    }),
+    __metadata("design:paramtypes", [])
+], ToastrModule);
+exports.ToastrModule = ToastrModule;
+var ToastrModule_1;
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+exports = module.exports = __webpack_require__(5)();
 // imports
 
 
 // module
-exports.push([module.i, ".toast-container {\n  display: block;\n  position: fixed;\n  top: 1em;\n  right: 1em;\n  z-index: 1000;\n}\n\n.toast {\n  width: 20em;\n  padding: 1em 2em;\n  border-radius: 5px;\n  margin-bottom: 1em;\n  position: relative;\n}\n\n.toast .title {\n  font-size: .85em;\n  text-transform: uppercase;\n  font-weight: bold;\n  letter-spacing: 2px;\n  margin-bottom: .5em;\n  white-space: nowrap;\n}\n\n.toast:hover {\n  opacity: .8;\n  transition: opacity 250ms;\n}\n\n.toast.default {\n  background: rgba(13, 13, 13, 0.8);\n  color: #eee;\n  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);\n}\n\n.toast.error {\n  background: rgba(204, 51, 51, 0.9);\n  color: #eee;\n  box-shadow: 0 1px 5px rgba(191, 64, 64, 0.5);\n}\n\n.toast.success {\n  background: rgba(0, 194, 146, 0.9);\n  color: #eee;\n  box-shadow: 0 1px 5px rgba(191, 64, 64, 0.5);\n}\n\n.toast .btn-close {\n  width: 20px;\n  ransition: opacity 250ms;\n  height: 20px;\n  border-radius: 50%;\n  border: 1px solid white;\n  position: absolute;\n  right: .5em;\n  top: .5em;\n  cursor: pointer;\n  opacity: .4;\n  transition: opacity 250ms;\n}\n\n.toast .btn-close:hover {\n  opacity: 1;\n  transition: opacity 250ms;\n}\n\n.toast .btn-close::after {\n  content: '\\2715';\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}", ""]);
+exports.push([module.i, ".toast-container {\n  display: block;\n  position: fixed;\n  top: 1em;\n  right: 1em;\n  z-index: 1000;\n}\n\n.toast {\n  width: 20em;\n  padding: 1em 2em;\n  border-radius: 5px;\n  margin-bottom: 1em;\n  position: relative;\n}\n\n.toast .title {\n  font-size: .85em;\n  text-transform: uppercase;\n  font-weight: bold;\n  letter-spacing: 2px;\n  margin-bottom: .5em;\n  white-space: nowrap;\n}\n\n.toast:hover {\n  opacity: .8;\n  transition: opacity 250ms;\n}\n\n.toast.default {\n  background: rgba(13, 13, 13, 0.8);\n  color: #eee;\n  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);\n}\n\n.toast.error {\n  background: rgba(204, 51, 51, 0.9);\n  color: #eee;\n  box-shadow: 0 1px 5px rgba(191, 64, 64, 0.5);\n}\n\n.toast.success {\n  background: rgba(0, 194, 146, 0.9);\n  color: #eee;\n  box-shadow: 0 1px 5px rgba(191, 64, 64, 0.5);\n}\n\n.toast .btn-close {\n  width: 20px;\n  transition: opacity 250ms;\n  height: 20px;\n  border-radius: 50%;\n  border: 1px solid white;\n  position: absolute;\n  right: .5em;\n  top: .5em;\n  cursor: pointer;\n  opacity: .4;\n  transition: opacity 250ms;\n}\n\n.toast .btn-close:hover {\n  opacity: 1;\n  transition: opacity 250ms;\n}\n\n.toast .btn-close::after {\n  content: '\\2715';\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n}", ""]);
 
 // exports
 
 
 /***/ },
-/* 4 */
+/* 5 */
 /***/ function(module, exports) {
 
 /*
@@ -235,13 +262,13 @@ module.exports = function() {
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 // css-to-string-loader: transforms styles from css-loader to a string output
 
 // Get the styles
-var styles = __webpack_require__(3);
+var styles = __webpack_require__(4);
 
 if (typeof styles === 'string') {
   // Return an existing string
@@ -252,17 +279,17 @@ if (typeof styles === 'string') {
 }
 
 /***/ },
-/* 6 */
+/* 7 */
 /***/ function(module, exports) {
 
 module.exports = "<div class=\"toast-container\"><div class=\"toast\" *ngFor=\"let item of toasts\" [ngClass]=\"item.type\"><div class=\"btn-close\" (click)=\"close(item)\"></div><div class=\"title\">{{ item.title }}</div><div class=\"body\">{{ item.body }}</div></div></div>";
 
 /***/ },
-/* 7 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
+
 var core_1 = __webpack_require__(1);
 var toast_man_service_1 = __webpack_require__(0);
 var ToastContainer = (function () {
@@ -279,39 +306,38 @@ var ToastContainer = (function () {
     ToastContainer.prototype.close = function (toast) {
         this.toastMan.close(toast);
     };
-    ToastContainer = __decorate([
-        core_1.Component({
-            selector: 'toast-container',
-            template: __webpack_require__(6),
-            styles: [__webpack_require__(5)],
-            encapsulation: core_1.ViewEncapsulation.None,
-        }), 
-        __metadata('design:paramtypes', [toast_man_service_1.ToastMan])
-    ], ToastContainer);
     return ToastContainer;
 }());
+ToastContainer = __decorate([
+    core_1.Component({
+        selector: 'toast-container',
+        template: __webpack_require__(7),
+        styles: [__webpack_require__(6)],
+        encapsulation: core_1.ViewEncapsulation.None,
+    }),
+    __metadata("design:paramtypes", [toast_man_service_1.ToastMan])
+], ToastContainer);
 exports.ToastContainer = ToastContainer;
 
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports) {
 
-module.exports = __WEBPACK_EXTERNAL_MODULE_8__;
+module.exports = __WEBPACK_EXTERNAL_MODULE_9__;
 
 /***/ },
-/* 9 */
+/* 10 */
 /***/ function(module, exports, __webpack_require__) {
 
 "use strict";
-"use strict";
-var toastr_module_1 = __webpack_require__(2);
+
+var toastr_module_1 = __webpack_require__(3);
 exports.ToastrModule = toastr_module_1.ToastrModule;
 var toast_man_service_1 = __webpack_require__(0);
 exports.ToastMan = toast_man_service_1.ToastMan;
 
 
 /***/ }
-/******/ ])
+/******/ ]);
 });
-;

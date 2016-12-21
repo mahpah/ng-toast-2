@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core'
+import { ToastConfig } from './toast-config.class'
 
 export interface Toast {
 	title: string
@@ -10,12 +11,24 @@ export interface Toast {
 @Injectable()
 export class ToastMan {
 	toasts = [] as Array<Toast>
+	private config: ToastConfig
 
-	success(title, body, time = 5000) {
+	constructor(
+		config: ToastConfig,
+	) {
+		this.config = Object.assign({
+			timeAlive: 5000,
+			maxNumberOfToasts: 3,
+		}, config)
+	}
+
+	success(title, body, time?) {
+		time = time || this.config.timeAlive
 		return this.show(title, body, time, 'success')
 	}
 
-	error(title, body, time = 5000) {
+	error(title, body, time?) {
+		time = time || this.config.timeAlive
 		return this.show(title, body, time, 'error')
 	}
 
@@ -24,7 +37,7 @@ export class ToastMan {
 		this.toasts = this.toasts.filter(t => t !== item)
 	}
 
-	show(title, body, timealive, type = 'default') {
+	show(title, body, timealive?, type = 'default') {
 		let toast = {
 			type,
 			title,
@@ -32,6 +45,6 @@ export class ToastMan {
 			timeout: setTimeout(() => this.toasts = this.toasts.filter(t => t !== toast), timealive),
 		} as Toast
 
-		this.toasts  = [...this.toasts, toast]
+		this.toasts  = [...this.toasts, toast].slice(-this.config.maxNumberOfToasts)
 	}
 }

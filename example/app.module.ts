@@ -6,7 +6,10 @@ import { ToastrModule } from '../src'
 @NgModule({
 	imports: [
 		BrowserModule,
-		ToastrModule.forRoot()
+		ToastrModule.forRoot({
+			timeAlive: 5000,
+			maxNumberOfToasts: 3,
+		})
 	],
 
 	declarations: [

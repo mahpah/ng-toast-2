@@ -1,3 +1,4 @@
+import { ToastConfig } from './toast-config.class';
 export interface Toast {
     title: string;
     body: string;
@@ -6,8 +7,10 @@ export interface Toast {
 }
 export declare class ToastMan {
     toasts: Toast[];
-    success(title: any, body: any, time?: number): void;
-    error(title: any, body: any, time?: number): void;
+    private config;
+    constructor(config: ToastConfig);
+    success(title: any, body: any, time?: any): void;
+    error(title: any, body: any, time?: any): void;
     close(item: Toast): void;
-    show(title: any, body: any, timealive: any, type?: string): void;
+    show(title: any, body: any, timealive?: any, type?: string): void;
 }

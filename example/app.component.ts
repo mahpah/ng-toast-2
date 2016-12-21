@@ -13,6 +13,6 @@ export class AppComponent {
 	) {}
 
 	show() {
-		this.toastMan.success('afas', 'asdfsadf', 1000000)
+		this.toastMan.success('afas', 'abcdefgh'[Math.round(Math.random() * 8)] + new Date().getSeconds())
 	}
 }
